@@ -1,4 +1,8 @@
-# Welcome to your Lovable project
+# Text Analyzer
+
+![Preview Screenshot](https://raw.githubusercontent.com/Abhis33/text-stats-buddy/refs/heads/main/public/screencapture-id-preview-04ce7f83-3344-4836-9e42-5d93e82e8f21-lovable-app-2026-01-29-13_16_51.png)
+
+![Preview Screenshot](https://raw.githubusercontent.com/Abhis33/text-stats-buddy/refs/heads/main/public/screencapture-id-preview-04ce7f83-3344-4836-9e42-5d93e82e8f21-lovable-app-2026-01-29-13_16_15.png)
 
 ## Project info
 
