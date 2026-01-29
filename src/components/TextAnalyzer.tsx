@@ -22,9 +22,9 @@ const TextAnalyzer = () => {
     const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
     const paragraphCount = text.trim() === "" ? 0 : paragraphs.length;
 
-    // Sentence count: split by sentence-ending punctuation
-    const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-    const sentenceCount = text.trim() === "" ? 0 : sentences.length;
+    // Sentence count: count sentence-ending punctuation marks
+    const sentenceEndings = text.match(/[.!?]+/g);
+    const sentenceCount = sentenceEndings ? sentenceEndings.length : 0;
 
     // Reading time: average 200 words per minute
     const readingTimeMinutes = Math.ceil(wordCount / 200);
