@@ -132,6 +132,32 @@ const TextAnalyzer = () => {
             className="min-h-[400px] resize-none border-0 bg-transparent text-lg leading-relaxed placeholder:text-muted-foreground/50 focus-visible:ring-0 focus-visible:ring-offset-0 p-6"
           />
         </Card>
+
+        <div className="mt-12">
+          <h2 className="text-xl font-semibold text-foreground mb-4">How Statistics Are Calculated</h2>
+          <div className="grid gap-3">
+            <FaqItem
+              label="Characters"
+              description="Total number of characters including spaces and punctuation."
+            />
+            <FaqItem
+              label="Words"
+              description="Count of words separated by whitespace."
+            />
+            <FaqItem
+              label="Sentences"
+              description="Counted by punctuation marks (. ! ?) or line breaks with content."
+            />
+            <FaqItem
+              label="Paragraphs"
+              description="Groups of text separated by blank lines."
+            />
+            <FaqItem
+              label="Reading Time"
+              description="Estimated time based on average reading speed of 200 words per minute."
+            />
+          </div>
+        </div>
       </main>
     </div>
   );
@@ -155,6 +181,20 @@ const StatCard = ({ icon, label, value, suffix }: StatCardProps) => {
         {value.toLocaleString()}{suffix && <span className="text-sm font-normal text-muted-foreground ml-1">{suffix}</span>}
       </p>
     </Card>
+  );
+};
+
+interface FaqItemProps {
+  label: string;
+  description: string;
+}
+
+const FaqItem = ({ label, description }: FaqItemProps) => {
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 py-2 border-b border-border last:border-0">
+      <span className="font-medium text-foreground min-w-[100px]">{label}</span>
+      <span className="text-muted-foreground text-sm">{description}</span>
+    </div>
   );
 };
 
