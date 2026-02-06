@@ -3,10 +3,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Type, AlignLeft, Clock, MessageSquare, Copy, Trash2, Moon, Sun, Check, FileDown } from "lucide-react";
+import { FileText, Type, AlignLeft, Clock, MessageSquare, Copy, Trash2, Moon, Sun, Check, FileDown, Image } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "@/components/ui/sonner";
 import MarkdownToPdf from "./MarkdownToPdf";
+import ImageToPdf from "./ImageToPdf";
 
 const TextAnalyzer = () => {
   const [text, setText] = useState("");
@@ -76,7 +77,7 @@ const TextAnalyzer = () => {
 
       <main className="flex-1 container max-w-4xl mx-auto px-4 pb-12">
         <Tabs defaultValue="analyzer" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
             <TabsTrigger value="analyzer" className="gap-2">
               <Type className="w-4 h-4" />
               Text Analyzer
@@ -84,6 +85,10 @@ const TextAnalyzer = () => {
             <TabsTrigger value="markdown" className="gap-2">
               <FileDown className="w-4 h-4" />
               Markdown to PDF
+            </TabsTrigger>
+            <TabsTrigger value="images" className="gap-2">
+              <Image className="w-4 h-4" />
+              Image to PDF
             </TabsTrigger>
           </TabsList>
 
@@ -177,6 +182,10 @@ const TextAnalyzer = () => {
 
           <TabsContent value="markdown">
             <MarkdownToPdf />
+          </TabsContent>
+
+          <TabsContent value="images">
+            <ImageToPdf />
           </TabsContent>
         </Tabs>
       </main>
