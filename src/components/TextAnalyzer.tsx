@@ -68,10 +68,10 @@ const TextAnalyzer = () => {
           {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </Button>
         <h1 className="text-4xl font-bold text-foreground tracking-tight">
-          Text Analyzer
+          DocuForge
         </h1>
         <p className="text-muted-foreground mt-2">
-          Paste or type your text to see instant statistics
+          Analyze text, convert Markdown, and merge images into PDFs — all in one toolkit
         </p>
       </header>
 
