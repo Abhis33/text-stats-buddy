@@ -2,9 +2,11 @@ import { useState, useMemo } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Type, AlignLeft, Clock, MessageSquare, Copy, Trash2, Moon, Sun, Check } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FileText, Type, AlignLeft, Clock, MessageSquare, Copy, Trash2, Moon, Sun, Check, FileDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "@/components/ui/sonner";
+import MarkdownToPdf from "./MarkdownToPdf";
 
 const TextAnalyzer = () => {
   const [text, setText] = useState("");
@@ -73,91 +75,110 @@ const TextAnalyzer = () => {
       </header>
 
       <main className="flex-1 container max-w-4xl mx-auto px-4 pb-12">
-        <div className="grid gap-4 grid-cols-2 md:grid-cols-5 mb-8">
-          <StatCard
-            icon={<Type className="w-5 h-5" />}
-            label="Characters"
-            value={stats.characterCount}
-          />
-          <StatCard
-            icon={<FileText className="w-5 h-5" />}
-            label="Words"
-            value={stats.wordCount}
-          />
-          <StatCard
-            icon={<MessageSquare className="w-5 h-5" />}
-            label="Sentences"
-            value={stats.sentenceCount}
-          />
-          <StatCard
-            icon={<AlignLeft className="w-5 h-5" />}
-            label="Paragraphs"
-            value={stats.paragraphCount}
-          />
-          <StatCard
-            icon={<Clock className="w-5 h-5" />}
-            label="Read Time"
-            value={stats.readingTimeMinutes}
-            suffix="min"
-          />
-        </div>
+        <Tabs defaultValue="analyzer" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsTrigger value="analyzer" className="gap-2">
+              <Type className="w-4 h-4" />
+              Text Analyzer
+            </TabsTrigger>
+            <TabsTrigger value="markdown" className="gap-2">
+              <FileDown className="w-4 h-4" />
+              Markdown to PDF
+            </TabsTrigger>
+          </TabsList>
 
-        <Card className="bg-card border-border shadow-soft">
-          <div className="flex items-center gap-2 p-3 border-b border-border">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleCopy}
-              disabled={!text}
-              className="gap-2"
-            >
-              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-              {copied ? "Copied" : "Copy"}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClear}
-              disabled={!text}
-              className="gap-2 text-destructive hover:text-destructive"
-            >
-              <Trash2 className="w-4 h-4" />
-              Clear
-            </Button>
-          </div>
-          <Textarea
-            placeholder="Start typing or paste your text here..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="min-h-[400px] resize-none border-0 bg-transparent text-lg leading-relaxed placeholder:text-muted-foreground/50 focus-visible:ring-0 focus-visible:ring-offset-0 p-6"
-          />
-        </Card>
+          <TabsContent value="analyzer">
+            <div className="grid gap-4 grid-cols-2 md:grid-cols-5 mb-8">
+              <StatCard
+                icon={<Type className="w-5 h-5" />}
+                label="Characters"
+                value={stats.characterCount}
+              />
+              <StatCard
+                icon={<FileText className="w-5 h-5" />}
+                label="Words"
+                value={stats.wordCount}
+              />
+              <StatCard
+                icon={<MessageSquare className="w-5 h-5" />}
+                label="Sentences"
+                value={stats.sentenceCount}
+              />
+              <StatCard
+                icon={<AlignLeft className="w-5 h-5" />}
+                label="Paragraphs"
+                value={stats.paragraphCount}
+              />
+              <StatCard
+                icon={<Clock className="w-5 h-5" />}
+                label="Read Time"
+                value={stats.readingTimeMinutes}
+                suffix="min"
+              />
+            </div>
 
-        <div className="mt-12">
-          <h2 className="text-xl font-semibold text-foreground mb-4">How Statistics Are Calculated</h2>
-          <div className="grid gap-3">
-            <FaqItem
-              label="Characters"
-              description="Total number of characters including spaces and punctuation."
-            />
-            <FaqItem
-              label="Words"
-              description="Count of words separated by whitespace."
-            />
-            <FaqItem
-              label="Sentences"
-              description="Counted by punctuation marks (. ! ?) or line breaks with content."
-            />
-            <FaqItem
-              label="Paragraphs"
-              description="Groups of text separated by blank lines."
-            />
-            <FaqItem
-              label="Reading Time"
-              description="Estimated time based on average reading speed of 200 words per minute."
-            />
-          </div>
-        </div>
+            <Card className="bg-card border-border shadow-soft">
+              <div className="flex items-center gap-2 p-3 border-b border-border">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleCopy}
+                  disabled={!text}
+                  className="gap-2"
+                >
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  {copied ? "Copied" : "Copy"}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClear}
+                  disabled={!text}
+                  className="gap-2 text-destructive hover:text-destructive"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Clear
+                </Button>
+              </div>
+              <Textarea
+                placeholder="Start typing or paste your text here..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="min-h-[400px] resize-none border-0 bg-transparent text-lg leading-relaxed placeholder:text-muted-foreground/50 focus-visible:ring-0 focus-visible:ring-offset-0 p-6"
+              />
+            </Card>
+
+            <div className="mt-12">
+              <h2 className="text-xl font-semibold text-foreground mb-4">How Statistics Are Calculated</h2>
+              <div className="grid gap-3">
+                <FaqItem
+                  label="Characters"
+                  description="Total number of characters including spaces and punctuation."
+                />
+                <FaqItem
+                  label="Words"
+                  description="Count of words separated by whitespace."
+                />
+                <FaqItem
+                  label="Sentences"
+                  description="Counted by punctuation marks (. ! ?) or line breaks with content."
+                />
+                <FaqItem
+                  label="Paragraphs"
+                  description="Groups of text separated by blank lines."
+                />
+                <FaqItem
+                  label="Reading Time"
+                  description="Estimated time based on average reading speed of 200 words per minute."
+                />
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="markdown">
+            <MarkdownToPdf />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
